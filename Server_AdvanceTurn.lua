@@ -1,5 +1,5 @@
 
-function Server_AdvanceTurn_End(game,addOrder)
+function Server_AdvanceTurn_Start(game,addOrder)
     local standing = game.ServerGame.LatestTurnStanding;
 	local default_areas = game.MapDetails.Bonuses
 	local overridden_areas = game.GameSettings.OverriddenBonuses
@@ -23,7 +23,7 @@ function Server_AdvanceTurn_End(game,addOrder)
 			for _, terr in pairs(standing.Territories)
 			terrMod = WL.TerritoryModification.Create(curr_ter_ID);
 			terrMod.SetArmiesTo = terr.NumArmies.NumArmies * 0.8; --TODO: Variable attrition
-			attirtionOrder[cur] = terrMod
+			attritionOrder[cur] = terrMod
 			cur = cur + 1
 		end
 	end
