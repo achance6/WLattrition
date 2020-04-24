@@ -21,14 +21,14 @@ function Server_AdvanceTurn_Start(game,addOrder)
     playerOwners = {}
     local count = 1
 		for _, currTerID in pairs(bonusDetails.Territories) do
-      if not isInWhiteList(standing.Territories[currTerID].OwnerPlayerID) then
+      if not isInWhiteList(standing.Territories[currTerID].OwnerPlayerID) and not standing.Territories[currTerID].IsNeutral then
         totalArmies = totalArmies + standing.Territories[currTerID].NumArmies.NumArmies
       end
       playerOwners[count] = standing.Territories[currTerID].OwnerPlayerID
 		end
-		if totalArmies > Mod.PublicGameData.supplyLimitData[bonusID]  then
+		if totalArmies > Mod.PublicGameData.supplyLimitData[bonusID] then
 			for _, currTerID in pairs(bonusDetails.Territories) do
-        if not isInWhiteList(standing.Territories[currTerID].OwnerPlayerID) then
+        if not isInWhiteList(standing.Territories[currTerID].OwnerPlayerID) and not standing.Territories[currTerID].IsNeutral then
           terrMod = WL.TerritoryModification.Create(currTerID);
           terrMod.SetArmiesTo = standing.Territories[currTerID].NumArmies.NumArmies * 0.8; --TODO: Variable attrition
           attritionOrder[cur] = terrMod
