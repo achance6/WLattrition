@@ -1,15 +1,36 @@
 function Server_StartGame(game, standing) 
-	print("test")
-	local def_bonuses = game.Map.Bonuses
-	local overriden_bonuses = game.Settings.OverriddenBonuses
-	local public_game_data = Mod.PublicGameData
-	local supply_limit_mult = 15
-	public_game_data.supply_limit_data = {}
-	for area_id, bonus_details in pairs(def_bonuses) do
-		public_game_data.supply_limit_data[area_id] = bonus_details.Amount * supply_limit_mult
+  local SUPPLYLIMITMULT = 15
+	local defaultBonuses = game.Map.Bonuses
+	local overriddenBonuses = game.Settings.OverriddenBonuses
+	local publicGameData = Mod.PublicGameData
+	publicGameData.supplyLimitData = {}
+  publicGameData.whiteList = {} --Array of player IDs for whom attrition is nullified
+  local whiteListBonuses = {} --Array of bonus IDs that, if controlled by a player, nullify attrition for that player globally
+  local whiteBonusCount = 1
+	for bonusID, bonusDetails in pairs(defaultBonuses) do
+		publicGameData.supplyLimitData[bonusID] = bonusDetails.Amount * SUPPLYLIMITMULT
+    if bonusDetails.Name == "The March of the White Walkers" then
+      whiteListBonuses[whiteBonusCount] = bonusDetails
+      whiteBonusCount = whiteBonusCount + 1
+    end
 	end
-	for area_id, bonus_details in pairs(overriden_bonuses) do
-		public_game_data.supply_limit_data[area_id] = bonus_details.Amount * supply_limit_mult
+	for bonusID, bonusDetails in pairs(overriddenBonuses) do
+		publicGameData.supplyLimitData[bonusID] = bonusDetails.Amount * SUPPLYLIMITMULT
+    if bonusDetails.Name == "The March of the White Walkers" then
+      whiteListBonuses[whiteBonusCount] = bonusDetails
+      whiteBonusCount = whiteBonusCount + 1
+    end
 	end
-	Mod.PublicGameData = public_game_data
+  
+  local cur = 1
+  for _, bonusDetails in pairs(whiteListBonuses) do
+    for _, terrID in pairs(bonusDetails.Territories) do
+      if not standing.Territories[terrID].IsNeutral then
+        publicGameData.whiteList[cur] = standing.Territories[terrID].OwnerPlayerID
+        cur = cur + 1
+      end
+    end
+  end
+  
+	Mod.PublicGameData = publicGameData
 end
