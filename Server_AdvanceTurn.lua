@@ -48,20 +48,20 @@ function isInWhiteList(playerID)
   return false
 end
 
-function Server_AdvanceTurn_Order(game, gameOrder, gameOrderResult, skipThisOrder, addNewOrder) 
-  eatOrder = {}
-  cur = 1
-  if isInWhiteList(gameOrder.PlayerID) and type(gameOrderResult) == "GameOrderAttackTransferResult"  then
-    local defendingArmiesKilled = gameOrderResult.GameOrderAttackTransferResult.DefendingArmiesKilled
+--function Server_AdvanceTurn_Order(game, gameOrder, gameOrderResult, skipThisOrder, addNewOrder) 
+--  eatOrder = {}
+ -- cur = 1
+ -- if isInWhiteList(gameOrder.PlayerID) and type(gameOrderResult) == "GameOrderAttackTransferResult"  then
+--    local defendingArmiesKilled = gameOrderResult.GameOrderAttackTransferResult.DefendingArmiesKilled
       --if gameOrderResult.GameOrderAttackTransferResult.IsSuccessful then
         --local armiesRemaining = gameOrder.GameOrderResult.GameOrderAttackTransferResult.ActualArmies - gameOrder.GameOrderResult.GameOrderAttackTransferResult.AttackingArmiesKilled
-        terrMod = WL.TerritoryModification.Create(gameOrder.To)
+ --       terrMod = WL.TerritoryModification.Create(gameOrder.To)
         --terrMod.SetArmiesTo = armiesRemaining + (0.2 * defendingArmiesKilled)
-        terrMod.SetArmiesTo = 30
-        eatOrder[cur] = terrMod
-        cur = cur + 1
+  --      terrMod.SetArmiesTo = 30
+   --     eatOrder[cur] = terrMod
+   --     cur = cur + 1
       --end
-    addNewOrder(WL.GameOrderEvent.Create(WL.PlayerID.Neutral, 'Eat', nil, eatOrder))
-  end
+  --  addNewOrder(WL.GameOrderEvent.Create(WL.PlayerID.Neutral, 'Eat', nil, eatOrder))
+  --end
   
-end
+--end
