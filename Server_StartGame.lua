@@ -1,5 +1,5 @@
 function Server_StartGame(game, standing) 
-  local SUPPLYLIMITMULT = 15
+  local SUPPLYLIMITMULT = 30
 	local defaultBonuses = game.Map.Bonuses
 	local overriddenBonuses = game.Settings.OverriddenBonuses
 	local publicGameData = Mod.PublicGameData
