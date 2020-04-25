@@ -14,10 +14,10 @@ function Server_StartGame(game, standing)
       whiteBonusCount = whiteBonusCount + 1
     end
 	end
-	for bonusID, bonusDetails in pairs(overriddenBonuses) do
-		publicGameData.supplyLimitData[bonusID] = bonusDetails.Amount * SUPPLYLIMITMULT
-    if bonusDetails.Name == "The March of the White Walkers" then
-      whiteListBonuses[whiteBonusCount] = bonusDetails
+	for bonusID, _ in pairs(overriddenBonuses) do
+		publicGameData.supplyLimitData[bonusID] = game.Map.Bonuses[bonusID].Amount * SUPPLYLIMITMULT
+    if game.Map.Bonuses[bonusID].Name == "The March of the White Walkers" then
+      whiteListBonuses[whiteBonusCount] = game.Map.Bonuses[bonusID]
       whiteBonusCount = whiteBonusCount + 1
     end
 	end

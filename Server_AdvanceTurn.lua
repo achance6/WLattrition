@@ -8,9 +8,6 @@ function Server_AdvanceTurn_Start(game,addOrder)
 	--put overridden bonuses into our bonuses map
 	for bonusID, _ in pairs(defaultBonuses) do
 		bonuses[bonusID] = defaultBonuses[bonusID]
-		if overriddenBonuses[bonusID] ~= nil then
-			bonuses[bonusID] = overriddenBonuses[bonusID]
-		end
 	end
 	
 	attritionOrder = {}
